@@ -5,7 +5,7 @@ public class Fichier {
 public static void main(String[] args) throws IOException {
     
     String word, def, wordToFind;
-    boolean trf = true;
+    boolean srf = true;
     PrintWriter dict = new PrintWriter(new FileWriter("dict.txt"));
    
     String line;
@@ -18,7 +18,7 @@ public static void main(String[] args) throws IOException {
     while (true){
         choice = user_in.nextInt();
         if (choice == 1){
-            while (trf){
+            while (srf){
                 System.out.println("si vous voulez quittez tappez: 0 sinon tapez 1");
                 System.out.println("entrer un mot");
                 word = user_in.next();    
@@ -28,7 +28,7 @@ public static void main(String[] args) throws IOException {
                 stp = user_in.nextInt();
                 n++;
                 if(stp==0){
-                    trf = false;
+                    srf = false;
                 };
                 
                
