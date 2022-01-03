@@ -5,7 +5,7 @@ public class Fichier {
 public static void main(String[] args) throws IOException {
     
     String word, def, wordToFind;
-    boolean srf = true;
+    boolean trf = true;
     PrintWriter dict = new PrintWriter(new FileWriter("dict.txt"));
    
     String line;
@@ -18,7 +18,7 @@ public static void main(String[] args) throws IOException {
     while (true){
         choice = user_in.nextInt();
         if (choice == 1){
-            while (srf){
+            while (trf){
                 System.out.println("si vous voulez quittez tappez: 0 sinon tapez 1");
                 System.out.println("entrer un mot");
                 word = user_in.next();    
@@ -28,7 +28,7 @@ public static void main(String[] args) throws IOException {
                 stp = user_in.nextInt();
                 n++;
                 if(stp==0){
-                    srf = false;
+                    trf = false;
                 };
                 
                
@@ -48,10 +48,17 @@ public static void main(String[] args) throws IOException {
                 for (int k=0; k<n;k++){
                     line = dict_in.readLine();
                     String[] arr = line.split(" ", 2);                    
-                    if (arr[0].length()<wordToFind.length() | arr[0].length()>wordToFind.length()) 
-                        System.out.println("looking for it...");
+                    if (arr[0].length()<wordToFind.length()|arr[0].length()>wordToFind.length()) {
+                        if (arr[0].contains(wordToFind)){
+                            System.out.println("maybe you are looking for "+ arr[0]);
+                            break;
+                        }
+                        if (k!=n) System.out.println("looking .. ");
+                        if (k==n & !arr[0].contains(wordToFind))  System.out.println("not found");
+                    }
 
-                    else{
+                    
+                    else if (arr[0].length()==wordToFind.length()) {
                         int z=0;  
                         for(int i=0; i<wordToFind.length(); i++){
                             if (arr[0].charAt(i) == wordToFind.charAt(i)){
@@ -70,6 +77,9 @@ public static void main(String[] args) throws IOException {
                         }
                                 
                         }
+             
+                         
+                    else System.out.println("not found");
                     
                 }
                 mfrbl=false;
