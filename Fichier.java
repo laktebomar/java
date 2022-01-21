@@ -1,7 +1,47 @@
 import java.io.*;
 import java.util.Scanner;
+import java.util.*;
 
 public class Fichier {
+
+    static int compute_Levenshtein_distance(String str1, String str2)
+    {
+    
+        if (str1.isEmpty())
+        {
+            return str2.length();
+        }
+  
+      
+  
+        if (str2.isEmpty()) 
+        {
+            return str1.length();
+        }
+  
+        int replace = compute_Levenshtein_distance(
+              str1.substring(1), str2.substring(1))
+              + NumOfReplacement(str1.charAt(0),str2.charAt(0));
+  
+        int insert = compute_Levenshtein_distance(
+                         str1, str2.substring(1))+ 1;
+  
+        int delete = compute_Levenshtein_distance(
+                         str1.substring(1), str2)+ 1;
+        
+        return minm_edits(replace, insert, delete);
+    }
+  
+    static int NumOfReplacement(char c1, char c2)
+    {   
+        return c1 == c2 ? 0 : 1;
+    }
+  
+    static int minm_edits(int... nums)
+    {
+        return Arrays.stream(nums).min().orElse(
+            Integer.MAX_VALUE);
+    }
 public static void main(String[] args) throws IOException {
     
     String word, def, wordToFind;
@@ -48,48 +88,30 @@ public static void main(String[] args) throws IOException {
                 for (int k=0; k<n;k++){
                     line = dict_in.readLine();
                     String[] arr = line.split(" ", 2);                    
-                    if (arr[0].length()<wordToFind.length()|arr[0].length()>wordToFind.length()) {
-                        if (arr[0].contains(wordToFind)){
-                            System.out.println("maybe you are looking for "+ arr[0]);
+                    if (arr[0].equals(wordToFind)) 
+                        System.out.println(line);
+                    else if (compute_Levenshtein_distance(arr[0], wordToFind)<=2){
+                            System.out.println(line);
+                                break;
+                        }
+                    else{
+                        if (k ==n){
+                            System.out.println("mot n'existe pas");
                             break;
                         }
-                        if (k!=n) System.out.println("looking .. ");
-                        if (k==n & !arr[0].contains(wordToFind))  System.out.println("not found");
+                        
+                    }   
+                            
                     }
-
-                    
-                    else if (arr[0].length()==wordToFind.length()) {
-                        int z=0;  
-                        for(int i=0; i<wordToFind.length(); i++){
-                            if (arr[0].charAt(i) == wordToFind.charAt(i)){
-                                z++;
-                            }    
-                        }
-                        if(z>=2){
-                            if(arr[0].equals(wordToFind)){
-                                System.out.println(line); 
-                                break;
-                            }
-                            else{
-                                System.out.println("maybe you are looking for "+ arr[0]);
-                                break;
-                            }
-                        }
-                                
-                        }
-             
-                         
-                    else System.out.println("not found");
-                    
+                    mfrbl=false;
                 }
-                mfrbl=false;
-            
+               
+                dict_in.close();
         }
-        dict_in.close();
+       else{
+           break;
+       }
     }
-    else{
-        user_in.close();
-        break;
-    }
+
 }
-}}
+}
