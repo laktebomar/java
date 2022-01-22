@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import java.awt.event.*;
 import javax.swing.JTextField;
 
-public class Tuto extends JFrame {
+public class SchoolManagementGui extends JFrame {
     
     JButton btn = new JButton("etudiant");
     JButton btn1 = new JButton("Niveau");
@@ -55,7 +55,7 @@ public class Tuto extends JFrame {
 
 
     public static void main(String[] args) {
-            Tuto t = new Tuto();
+            SchoolManagementGui t = new SchoolManagementGui();
     }
 }
 
